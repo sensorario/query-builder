@@ -4,6 +4,7 @@
     "require": {
         "doctrine/dbal": "^2.6"
     },
+    "license": "MIT",
     "authors": [
         {
             "name": "Simone Gentili",
