@@ -1,9 +1,6 @@
 {
     "name": "sensorario/query-builder",
     "description": "custom query builder for doctrine",
-    "require": {
-        "doctrine/dbal": "^2.6"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -11,6 +8,14 @@
             "email": "sensorario@gmail.com"
         }
     ],
+    "require": {
+        "doctrine/dbal": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "": ["src/", "tests/"]
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"
