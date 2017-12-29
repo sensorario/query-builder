@@ -4,6 +4,9 @@ namespace Sensorario\QueryBuilder\Objects;
 
 use Sensorario\QueryBuilder\Exceptions;
 
+/**
+ * @since Class available since Release 1.0.1
+ */
 final class Criteria
 {
     const CLASS_NAME = 'class';
