@@ -2,6 +2,9 @@
 
 namespace Sensorario\QueryBuilder;
 
+/**
+ * @since Class available since Release 1.0.0
+ */
 final class SelectBuilder
 {
     private $table;

@@ -5,6 +5,9 @@ namespace Sensorario\QueryBuilder;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @since Class available since Release 1.0.0
+ */
 final class Joiner
 {
     private $manager;

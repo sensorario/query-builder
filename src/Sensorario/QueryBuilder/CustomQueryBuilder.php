@@ -4,6 +4,9 @@ namespace Sensorario\QueryBuilder;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * @since Class available since Release 1.0.0
+ */
 final class CustomQueryBuilder
 {
     private $criteria;
