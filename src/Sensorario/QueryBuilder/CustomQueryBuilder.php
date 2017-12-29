@@ -8,7 +8,7 @@ final class CustomQueryBuilder
 {
     private $criteria;
 
-    public function __construct(array $criteria)
+    public function __construct(Objects\Criteria $criteria)
     {
         $this->criteria = $criteria;
     }

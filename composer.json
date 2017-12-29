@@ -9,11 +9,16 @@
         }
     ],
     "require": {
-        "doctrine/dbal": "^2.6"
+        "doctrine/dbal": "^2.6",
+        "phpunit/phpunit": "^6.5"
+    },
+    "config": {
+        "bin-dir": "bin"
     },
     "autoload": {
         "psr-4": {
-            "": ["src/", "tests/"]
+            "": "src/",
+            "Sensorario\\QueryBuilder\\Tests\\": "tests/"
         }
     },
     "extra": {
