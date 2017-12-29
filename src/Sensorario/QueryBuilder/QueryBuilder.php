@@ -9,8 +9,6 @@ use Doctrine\ORM\EntityManager;
  */
 final class QueryBuilder
 {
-    private $manager;
-
     private $className;
 
     private $queryBuilder;
@@ -20,41 +18,38 @@ final class QueryBuilder
     private $joiner;
 
     public function __construct(
-        EntityManager $manager,
+        Objects\MetaData $metadata,
         SelectBuilder $selectBuilder,
         Joiner $joiner
     ) {
-        $this->manager       = $manager;
+        $this->metadata      = $metadata;
         $this->selectBuilder = $selectBuilder;
         $this->joiner        = $joiner;
-    }
 
-    public function setCriteria(Objects\Criteria $criteria)
-    {
+        $criteria = $this->metadata->getCriteria();
         $this->className = $criteria->getClassName();
         $this->fields = $criteria->getFields();
-
-        return $this;
     }
 
     private function build()
     {
-        $meta = $this->manager->getClassMetadata($this->className);
-        $table = $meta->table['name'];
-
-        $this->selectBuilder->setTable($table);
+        $this->selectBuilder->setTable($this->metadata->getTable());
         $this->selectBuilder->addFields($this->fields);
         $select = join(', ', $this->selectBuilder->getFields());
 
-        $this->queryBuilder = $this->manager->createQueryBuilder();
+        $this->queryBuilder = $this->metadata->getQueryBuilder();
+
         $this->queryBuilder = $this->queryBuilder->select($select);
-        $this->queryBuilder = $this->queryBuilder->from($this->className, $table);
+
+        $this->queryBuilder = $this->queryBuilder->from(
+            $this->className,
+            $this->metadata->getTable()
+        );
 
         $this->joiner->init(
-            $this->manager,
             $this->selectBuilder,
             $this->queryBuilder,
-            $table
+            $this->metadata
         );
 
         $this->queryBuilder = $this->joiner->getBuilder();

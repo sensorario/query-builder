@@ -4,7 +4,6 @@ namespace Sensorario\QueryBuilder\Tests\Objects;
 
 use PHPUnit\Framework\TestCase;
 use Sensorario\QueryBuilder\Objects\Criteria;
-use Sensorario\QueryBuilder\Exceptions\MissingClassNameException;
 
 class CriteriaTest extends TestCase
 {
