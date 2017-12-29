@@ -12,7 +12,7 @@ final class QueryBuilder
 
     private $queryBuilder;
 
-    private $criteria;
+    private $fields;
 
     private $joiner;
 
@@ -26,10 +26,10 @@ final class QueryBuilder
         $this->joiner        = $joiner;
     }
 
-    public function setCriteria(array $criteria)
+    public function setCriteria(Objects\Criteria $criteria)
     {
-        $this->className = $criteria['class'];
-        $this->criteria = $criteria;
+        $this->className = $criteria->getClassName();
+        $this->fields = $criteria->getFields();
 
         return $this;
     }
@@ -40,7 +40,7 @@ final class QueryBuilder
         $table = $meta->table['name'];
 
         $this->selectBuilder->setTable($table);
-        $this->selectBuilder->addFields($this->criteria['what']);
+        $this->selectBuilder->addFields($this->fields);
         $select = join(', ', $this->selectBuilder->getFields());
 
         $this->queryBuilder = $this->manager->createQueryBuilder();
