@@ -16,6 +16,7 @@ class MetaDataTest extends TestCase
             ->setMethods([
                 'createQueryBuilder',
                 'getClassMetadata',
+                'getMetadataFactory',
             ])
             ->getMock();
 
@@ -91,6 +92,37 @@ class MetaDataTest extends TestCase
         $this->assertEquals(
             'foo',
             $this->meta->getTable()
+        );
+    }
+
+    public function testProvideAllEntitiesMetadata()
+    {
+        $this->factory = $this
+            ->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadataFactory')
+            ->disableOriginalConstructor()
+            ->setMethods(['getAllMetadata'])
+            ->getMock();
+        $this->factory->expects($this->once())
+            ->method('getAllMetadata')
+            ->willReturn($anArray = [
+                'foo' => 'bar',
+            ]);
+
+        $this->manager->expects($this->once())
+            ->method('getMetadataFactory')
+            ->willReturn($this->factory);
+
+        $this->manager->expects($this->never())
+            ->method('createQueryBuilder');
+
+        $this->meta = MetaData::fromEntityManager(
+            $this->manager,
+            $this->criteria
+        );
+
+        $this->assertEquals(
+            $anArray,
+            $this->meta->getAllEntities()
         );
     }
 }
