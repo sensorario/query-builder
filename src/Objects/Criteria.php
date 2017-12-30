@@ -7,7 +7,7 @@ use Sensorario\QueryBuilder\Exceptions;
 /**
  * @since Class available since Release 1.0.1
  */
-final class Criteria
+class Criteria
 {
     const CLASS_NAME = 'class';
 

@@ -5,7 +5,7 @@ namespace Sensorario\QueryBuilder;
 /**
  * @since Class available since Release 1.0.0
  */
-final class SelectBuilder
+class SelectBuilder
 {
     private $table;
 
@@ -20,11 +20,15 @@ final class SelectBuilder
 
     public function addField(string $field) : void
     {
+        $this->ensureTableIsDefined();
+
         $this->field[] = $field;
     }
 
     public function addFields(array $fields) : void
     {
+        $this->ensureTableIsDefined();
+
         $this->field = array_merge(
             $this->field,
             $fields
@@ -77,6 +81,14 @@ final class SelectBuilder
             'from' => $from,
             'to'   => $to,
         ];
+    }
+
+    /** @since Class available since Release 1.0.3 */
+    public function ensureTableIsDefined()
+    {
+        if (!$this->table) {
+            throw new \Sensorario\QueryBuilder\Exceptions\MissingTableException();
+        }
     }
 }
 

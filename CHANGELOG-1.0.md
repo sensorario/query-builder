@@ -5,3 +5,4 @@
  - fix #5 - replace `EntityManager` collaborator with `MetaData` component
  - fix #9 - complete coverage of `MetaData` component
  - fix #11 - remove unnecessary folders
+ - fix #12 - complete code coverage
