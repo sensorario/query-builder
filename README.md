@@ -2,31 +2,54 @@
 
 This is just an adapter of doctrine's query builder. Suppose to need all
 entities inside a database that stores tasks organized by categories
-structured. Here there are three joins to get all results.
+structured. Here there are three entities related together.
 
-```json
-{
-  "result": [
-    {
-      "task_title": "one task",
-      "subcategory_name": "first sub cateogory",
-      "category_name": "second category",
-      "macrocategory_name": "second macro category"
-    },
-    {
-      "task_title": "two task",
-      "subcategory_name": "first sub cateogory",
-      "category_name": "second category",
-      "macrocategory_name": "second macro category"
-    },
-    {
-      "task_title": "third task",
-      "subcategory_name": "second dub cateogory",
-      "category_name": "first category",
-      "macrocategory_name": "first macro category"
-    }
-  ]
-}
+```xml
+<entity repository-class="App\Repository\TaskRepository" name="App\Entity\Task" table="task">
+  <id name="id" type="integer" column="id">
+    <generator strategy="IDENTITY"/>
+  </id>
+  <field name="title" type="string" column="title" length="255" precision="0" scale="0" nullable="false"/>
+  <many-to-one field="subcategory" target-entity="App\Entity\SubCategory" inversed-by="tasks">
+      <join-column name="sub_category_id" referenced-column-name="id" />
+  </many-to-one>
+</entity>
+```
+
+```xml
+<entity name="App\Entity\SubCategory" table="subcategory">
+  <id name="id" type="integer" column="id">
+    <generator strategy="IDENTITY"/>
+  </id>
+  <field name="name" type="string" column="name" length="255" precision="0" scale="0" nullable="false"/>
+  <one-to-many field="tasks" target-entity="App\Entity\Task" mapped-by="subcategories" />
+  <many-to-one field="category" target-entity="App\Entity\Category" inversed-by="categories">
+      <join-column name="category_id" referenced-column-name="id" />
+  </many-to-one>
+</entity>
+```
+
+```xml
+<entity name="App\Entity\MacroCategory" table="macrocategory">
+  <id name="id" type="integer" column="id">
+    <generator strategy="IDENTITY"/>
+  </id>
+  <field name="name" type="string" column="name" length="255" precision="0" scale="0" nullable="false"/>
+  <one-to-many field="category" target-entity="App\Entity\Category" mapped-by="macrocategory" />
+</entity>
+```
+
+```xml
+<entity name="App\Entity\Category" table="category">
+  <id name="id" type="integer" column="id">
+    <generator strategy="IDENTITY"/>
+  </id>
+  <field name="name" type="string" column="name" length="255" precision="0" scale="0" nullable="false"/>
+  <one-to-many field="subcategory" target-entity="App\Entity\SubCategory" mapped-by="category" />
+  <many-to-one field="macrocategory" target-entity="App\Entity\MacroCategory" inversed-by="macrocategories">
+      <join-column name="macro_category_id" referenced-column-name="id" />
+  </many-to-one>
+</entity>
 ```
 
 Following relations, we can synthetize fields and relations in one class:
