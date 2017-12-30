@@ -27,7 +27,7 @@ class SelectBuilderTest extends TestCase
         $builder->addFields(['foo']);
     }
 
-    public function testXXXXX()
+    public function testPrependTableAndAppendUniqueAliasWithAllFields()
     {
         $builder = new SelectBuilder();
         $builder->setTable('tab');
@@ -38,7 +38,7 @@ class SelectBuilderTest extends TestCase
         );
     }
 
-    public function testYYYYY()
+    public function testPrependTableAndAppendUniqueAliasWithAddedField()
     {
         $builder = new SelectBuilder();
         $builder->setTable('tab');
@@ -49,7 +49,7 @@ class SelectBuilderTest extends TestCase
         );
     }
 
-    public function testYYYYsdfadsfasY()
+    public function testAddTableAndAliasAlsoConsideringRelations()
     {
         $builder = new SelectBuilder();
         $builder->setTable('tab');
@@ -64,7 +64,7 @@ class SelectBuilderTest extends TestCase
         );
     }
 
-    public function testOne()
+    public function testProvideRelationEntities()
     {
         $builder = new SelectBuilder();
         $builder->setTable('tab');

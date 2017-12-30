@@ -7,7 +7,7 @@ use Sensorario\QueryBuilder\Joiner;
 
 class JoinerTest extends TestCase
 {
-    public function testCreation()
+    public function testProvideQueryBuilderPreviouslyInjected()
     {
         $this->selectBuilder = $this
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
@@ -38,7 +38,7 @@ class JoinerTest extends TestCase
         );
     }
 
-    public function testMoreWillBeJoin()
+    public function testNeverCallsJoinWhenEntitiesDoesNotContainRelations()
     {
         $this->selectBuilder = $this
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
@@ -52,6 +52,16 @@ class JoinerTest extends TestCase
                     'to' => 'fizz',
                 ]
             ]);
+
+        $this->queryBuilder = $this
+            ->getMockBuilder('Doctrine\ORM\QueryBuilder')
+            ->disableOriginalConstructor()
+            ->setMethods([
+                'join',
+            ])
+            ->getMock();
+        $this->queryBuilder->expects($this->never())
+            ->method('join');
 
         $this->queryBuilder = $this
             ->getMockBuilder('Doctrine\ORM\QueryBuilder')
@@ -86,7 +96,7 @@ class JoinerTest extends TestCase
         );
     }
 
-    public function testInJoin()
+    public function testCallsJoinWhenEntitiesContainRelations()
     {
         $this->selectBuilder = $this
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
@@ -108,6 +118,8 @@ class JoinerTest extends TestCase
                 'join',
             ])
             ->getMock();
+        $this->queryBuilder->expects($this->once())
+            ->method('join');
 
         $this->metadata = $this
             ->getMockBuilder('Sensorario\QueryBuilder\Objects\MetaData')

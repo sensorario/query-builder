@@ -10,6 +10,8 @@ use Doctrine\ORM\Query;
  */
 class QueryBuilder
 {
+    private $extractor;
+
     private $className;
 
     private $queryBuilder;
@@ -19,11 +21,12 @@ class QueryBuilder
     private $joiner;
 
     public function __construct(
-        /** SelectFieldsExtractor $extractor */
+        Extractor $extractor,
         Objects\MetaData $metadata,
         SelectBuilder $selectBuilder,
         Joiner $joiner
     ) {
+        $this->extractor     = $extractor;
         $this->metadata      = $metadata;
         $this->selectBuilder = $selectBuilder;
         $this->joiner        = $joiner;
@@ -31,6 +34,8 @@ class QueryBuilder
         $criteria = $this->metadata->getCriteria();
         $this->className = $criteria->getClassName();
         $this->fields = $criteria->getFields();
+
+        $this->extractor->setFields($this->fields);
     }
 
     /** @since Class available since Release 1.0.3 */
@@ -63,7 +68,7 @@ class QueryBuilder
     /** @since Class available since Release 1.0.3 */
     public function initQueryBuilder() : void
     {
-        $select = $this->extractSelectFields();
+        $select = $this->extractor->extractSelectFields();
 
         $this->queryBuilder = $this->metadata->getQueryBuilder();
         $this->queryBuilder->select($select);
@@ -71,15 +76,6 @@ class QueryBuilder
             $this->className,
             $this->metadata->getTable()
         );
-    }
-
-    /** @since Class available since Release 1.0.3 */
-    public function extractSelectFields() : string
-    {
-        $table = $this->metadata->getTable();
-        $this->selectBuilder->setTable($table);
-        $this->selectBuilder->addFields($this->getFields());
-        return join(', ', $this->selectBuilder->getFields());
     }
 
     public function getResult() : array
