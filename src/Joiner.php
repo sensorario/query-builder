@@ -2,12 +2,12 @@
 
 namespace Sensorario\QueryBuilder;
 
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 
 /**
  * @since Class available since Release 1.0.0
  */
-final class Joiner
+class Joiner
 {
     private $metadata;
 
@@ -17,7 +17,7 @@ final class Joiner
 
     public function init(
         SelectBuilder $selectBuilder,
-        QueryBuilder  $builder,
+        DoctrineQueryBuilder $builder,
         Objects\MetaData $metadata
     ) {
         $this->metadata      = $metadata;
@@ -47,7 +47,7 @@ final class Joiner
         }
     }
 
-    public function getBuilder()
+    public function getBuilder() : DoctrineQueryBuilder
     {
         return $this->builder;
     }

@@ -7,7 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 /**
  * @since Class available since Release 1.0.1
  */
-final class MetaData
+class MetaData
 {
     private $manager;
 
@@ -17,7 +17,7 @@ final class MetaData
 
     private $queryBuilder;
 
-    private function __construct(
+    public function __construct(
         \Doctrine\ORM\EntityManager $manager,
         Criteria $criteria
     ) {
