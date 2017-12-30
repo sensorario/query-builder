@@ -100,7 +100,7 @@ $builder = new \Sensorario\QueryBuilder\CustomQueryBuilder();
 $result = $builder($metadata);
 ```
 
-… expected result like:
+A result like this:
 
 ```json
 {
@@ -114,3 +114,27 @@ $result = $builder($metadata);
   ]
 }
 ```
+
+Auto generated SQL statement should be the following:
+
+> 
+> SELECT
+>   task.title task_title,
+>   subcategory.name subcategory_name,
+>   subcategory.id subcategory_id,
+>   category.id category_id,
+>   category.name category_name,
+>   macrocategory.name macrocategory_name,
+>   macrocategory.id macrocategory_id
+>
+> FROM App\Entity\Task task
+>
+> INNER JOIN App\Entity\SubCategory subcategory
+>   WITH subcategory.id = task.subcategory
+>
+> INNER JOIN App\Entity\Category category
+>   WITH category.id = subcategory.category
+>
+> INNER JOIN App\Entity\MacroCategory macrocategory
+>   WITH macrocategory.id = category.macrocategory
+>
