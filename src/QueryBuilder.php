@@ -22,13 +22,10 @@ class QueryBuilder
 
     public function __construct(
         Extractor $extractor,
-        Objects\MetaData $metadata,
-        SelectBuilder $selectBuilder,
         Joiner $joiner
     ) {
         $this->extractor     = $extractor;
-        $this->metadata      = $metadata;
-        $this->selectBuilder = $selectBuilder;
+        $this->metadata      = $this->extractor->getMetadata();
         $this->joiner        = $joiner;
 
         $criteria = $this->metadata->getCriteria();
@@ -55,7 +52,7 @@ class QueryBuilder
         $this->initQueryBuilder();
 
         $this->joiner->init(
-            $this->selectBuilder,
+            $this->extractor->getSelectBuilder(),
             $this->queryBuilder,
             $this->metadata
         );

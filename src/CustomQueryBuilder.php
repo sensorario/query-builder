@@ -11,8 +11,10 @@ final class CustomQueryBuilder
     public function __invoke(Objects\MetaData $metadata)
     {
         return (new \Sensorario\QueryBuilder\QueryBuilder(
-            $metadata,
-            new \Sensorario\QueryBuilder\SelectBuilder(),
+            new \Sensorario\QueryBuilder\Extractor(
+                new \Sensorario\QueryBuilder\SelectBuilder(),
+                $metadata
+            ),
             new \Sensorario\QueryBuilder\Joiner()
         ))
         ->getQuery();

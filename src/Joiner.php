@@ -29,6 +29,12 @@ class Joiner
 
     private function join()
     {
+        if ([] == $this->selectBuilder->willBeJoin()) {
+            throw new \RuntimeException(
+                'Oops! No fields to join ...'
+            );
+        }
+
         $defined = [$this->metadata->getTable()];
         foreach ($this->selectBuilder->willBeJoin() as $join) {
             foreach ($this->metadata->getAllEntities() as $entity) {
