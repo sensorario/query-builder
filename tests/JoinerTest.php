@@ -13,6 +13,11 @@ class JoinerTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->selectBuilder->expects($this->exactly(2))
+            ->method('willBeJoin')
+            ->willReturn([
+                'foo'
+            ]);
 
         $this->queryBuilder = $this
             ->getMockBuilder('Doctrine\ORM\QueryBuilder')
@@ -44,7 +49,7 @@ class JoinerTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->selectBuilder->expects($this->once())
+        $this->selectBuilder->expects($this->exactly(2))
             ->method('willBeJoin')
             ->willReturn([
                 [
@@ -102,7 +107,7 @@ class JoinerTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->selectBuilder->expects($this->once())
+        $this->selectBuilder->expects($this->any())
             ->method('willBeJoin')
             ->willReturn([
                 [

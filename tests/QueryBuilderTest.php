@@ -23,11 +23,6 @@ class QueryBuilderTest extends TestCase
             ->method('getCriteria')
             ->willReturn($criteria);
 
-        $this->selectBuilder = $this
-            ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->joiner = $this
             ->getMockBuilder('Sensorario\QueryBuilder\Joiner')
             ->disableOriginalConstructor()
@@ -37,11 +32,12 @@ class QueryBuilderTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\Extractor')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->extractor->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($this->metadata);
 
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->metadata,
-            $this->selectBuilder,
             $this->joiner
         );
 
@@ -69,11 +65,6 @@ class QueryBuilderTest extends TestCase
             ->method('getCriteria')
             ->willReturn($criteria);
 
-        $this->selectBuilder = $this
-            ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->joiner = $this
             ->getMockBuilder('Sensorario\QueryBuilder\Joiner')
             ->disableOriginalConstructor()
@@ -83,11 +74,12 @@ class QueryBuilderTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\Extractor')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->extractor->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($this->metadata);
 
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->metadata,
-            $this->selectBuilder,
             $this->joiner
         );
 
@@ -103,7 +95,7 @@ class QueryBuilderTest extends TestCase
             'class' => 'Foo\\Bar',
             'what' => $fields = [
                 'foo',
-                'bar',
+                'fizz.buzz',
             ]
         ]);
 
@@ -114,11 +106,6 @@ class QueryBuilderTest extends TestCase
         $this->metadata->expects($this->once())
             ->method('getCriteria')
             ->willReturn($criteria);
-
-        $this->selectBuilder = $this
-            ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
-            ->disableOriginalConstructor()
-            ->getMock();
 
         $this->joiner = $this
             ->getMockBuilder('Sensorario\QueryBuilder\Joiner')
@@ -133,11 +120,12 @@ class QueryBuilderTest extends TestCase
             ->method('setFields')
             ->with($fields)
             ->willReturn('asdfads');
+        $this->extractor->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($this->metadata);
 
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->metadata,
-            $this->selectBuilder,
             $this->joiner
         );
     }
@@ -148,7 +136,7 @@ class QueryBuilderTest extends TestCase
             'class' => 'Foo\\Bar',
             'what' => $fields = [
                 'foo',
-                'bar',
+                'fizz.buzz',
             ]
         ]);
 
@@ -224,11 +212,15 @@ class QueryBuilderTest extends TestCase
         $this->extractor->expects($this->once())
             ->method('extractSelectFields')
             ->willReturn('bar.foo bar_foo, bar.bar bar_bar');
+        $this->extractor->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($this->metadata);
+        $this->extractor->expects($this->once())
+            ->method('getSelectBuilder')
+            ->willReturn($this->selectBuilder);
 
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->metadata,
-            $this->selectBuilder,
             $this->joiner
         );
 
@@ -241,7 +233,7 @@ class QueryBuilderTest extends TestCase
             'class' => 'Foo\\Bar',
             'what' => $fields = [
                 'foo',
-                'bar',
+                'fizz.buzz',
             ]
         ]);
 
@@ -323,11 +315,15 @@ class QueryBuilderTest extends TestCase
         $this->extractor->expects($this->once())
             ->method('extractSelectFields')
             ->willReturn('bar.foo bar_foo, bar.bar bar_bar');
+        $this->extractor->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($this->metadata);
+        $this->extractor->expects($this->once())
+            ->method('getSelectBuilder')
+            ->willReturn($this->selectBuilder);
 
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->metadata,
-            $this->selectBuilder,
             $this->joiner
         );
 
