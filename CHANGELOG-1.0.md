@@ -9,3 +9,4 @@
  - fix #14 - add new component [Extractor] to extract select fields from criteria
  - fix #18 - pass right [SelectBuilder] component
  - fix #17 - move phpunit vendor from require to require-dev
+ - fix #15 - add new [QueryFactory] component

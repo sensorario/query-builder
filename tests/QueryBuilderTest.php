@@ -36,9 +36,15 @@ class QueryBuilderTest extends TestCase
             ->method('getMetadata')
             ->willReturn($this->metadata);
 
+        $this->queryFactory = $this
+            ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->joiner
+            $this->joiner,
+            $this->queryFactory
         );
 
         $this->assertEquals(
@@ -78,9 +84,15 @@ class QueryBuilderTest extends TestCase
             ->method('getMetadata')
             ->willReturn($this->metadata);
 
+        $this->queryFactory = $this
+            ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->joiner
+            $this->joiner,
+            $this->queryFactory
         );
 
         $this->assertEquals(
@@ -124,9 +136,15 @@ class QueryBuilderTest extends TestCase
             ->method('getMetadata')
             ->willReturn($this->metadata);
 
+        $this->queryFactory = $this
+            ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->joiner
+            $this->joiner,
+            $this->queryFactory
         );
     }
 
@@ -145,13 +163,6 @@ class QueryBuilderTest extends TestCase
             ->disableOriginalConstructor()
             ->setMethods(['getQuery', 'select', 'from'])
             ->getMock();
-        $this->queryBuilder->expects($this->once())
-            ->method('select')
-            ->with('bar.foo bar_foo, bar.bar bar_bar')
-            ->willReturn($this->queryBuilder);
-        $this->queryBuilder->expects($this->once())
-            ->method('from')
-            ->with('Foo\\Bar', 'bar');
 
         $this->metadata = $this
             ->getMockBuilder('Sensorario\QueryBuilder\Objects\MetaData')
@@ -160,13 +171,6 @@ class QueryBuilderTest extends TestCase
         $this->metadata->expects($this->once())
             ->method('getCriteria')
             ->willReturn($criteria);
-        $this->metadata->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->queryBuilder);
-        /** @todo force just once call */
-        $this->metadata->expects($this->once())
-            ->method('getTable')
-            ->willReturn('bar');
 
         $this->selectBuilder = $this
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
@@ -210,18 +214,24 @@ class QueryBuilderTest extends TestCase
             ->method('setFields')
             ->with($fields);
         $this->extractor->expects($this->once())
-            ->method('extractSelectFields')
-            ->willReturn('bar.foo bar_foo, bar.bar bar_bar');
-        $this->extractor->expects($this->once())
             ->method('getMetadata')
             ->willReturn($this->metadata);
         $this->extractor->expects($this->once())
             ->method('getSelectBuilder')
             ->willReturn($this->selectBuilder);
 
+        $this->queryFactory = $this
+            ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->queryFactory->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->queryBuilder);
+
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->joiner
+            $this->joiner,
+            $this->queryFactory
         );
 
         $builder->getQuery();
@@ -242,13 +252,6 @@ class QueryBuilderTest extends TestCase
             ->disableOriginalConstructor()
             ->setMethods(['getQuery', 'select', 'from'])
             ->getMock();
-        $this->queryBuilder->expects($this->once())
-            ->method('select')
-            ->with('bar.foo bar_foo, bar.bar bar_bar')
-            ->willReturn($this->queryBuilder);
-        $this->queryBuilder->expects($this->once())
-            ->method('from')
-            ->with('Foo\\Bar', 'bar');
 
         $this->metadata = $this
             ->getMockBuilder('Sensorario\QueryBuilder\Objects\MetaData')
@@ -257,13 +260,6 @@ class QueryBuilderTest extends TestCase
         $this->metadata->expects($this->once())
             ->method('getCriteria')
             ->willReturn($criteria);
-        $this->metadata->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->queryBuilder);
-        /** @todo force just once call */
-        $this->metadata->expects($this->once())
-            ->method('getTable')
-            ->willReturn('bar');
 
         $this->selectBuilder = $this
             ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
@@ -313,18 +309,24 @@ class QueryBuilderTest extends TestCase
             ->method('setFields')
             ->with($fields);
         $this->extractor->expects($this->once())
-            ->method('extractSelectFields')
-            ->willReturn('bar.foo bar_foo, bar.bar bar_bar');
-        $this->extractor->expects($this->once())
             ->method('getMetadata')
             ->willReturn($this->metadata);
         $this->extractor->expects($this->once())
             ->method('getSelectBuilder')
             ->willReturn($this->selectBuilder);
 
+        $this->queryFactory = $this
+            ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->queryFactory->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->queryBuilder);
+
         $builder = new QueryBuilder(
             $this->extractor,
-            $this->joiner
+            $this->joiner,
+            $this->queryFactory
         );
 
         $actualResults = $builder->getResult();
