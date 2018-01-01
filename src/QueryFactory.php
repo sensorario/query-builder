@@ -11,17 +11,13 @@ class QueryFactory
 {
     private $extractor;
 
-    private $queryBuilder;
-
     private $metadata;
 
     public function __construct(
         Extractor $extractor,
-        QueryBuilder $queryBuilder,
         Objects\MetaData $metadata
     ) {
         $this->extractor    = $extractor;
-        $this->queryBuilder = $queryBuilder;
         $this->metadata     = $metadata;
     }
 

@@ -54,7 +54,6 @@ class QueryFactoryTest extends TestCase
 
         $factory = new QueryFactory(
             $this->extractor,
-            $this->queryBuilder,
             $this->metadata
         );
 
