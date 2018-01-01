@@ -23,14 +23,15 @@ class QueryBuilder
     private $fields;
 
     public function __construct(
-        Extractor $extractor,
         Joiner $joiner,
         QueryFactory $factory
     ) {
-        $this->extractor     = $extractor;
-        $this->metadata      = $this->extractor->getMetadata();
-        $this->joiner        = $joiner;
         $this->factory       = $factory;
+        $this->joiner        = $joiner;
+
+        $this->extractor = $this->factory->getExtractor();
+
+        $this->metadata      = $this->extractor->getMetadata();
 
         $criteria = $this->metadata->getCriteria();
         $this->className = $criteria->getClassName();

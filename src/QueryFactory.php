@@ -42,4 +42,10 @@ class QueryFactory
     {
         return $this->queryBuilder;
     }
+
+    /** @since method available since release 1.0.12 */
+    public function getExtractor()
+    {
+        return $this->extractor;
+    }
 }

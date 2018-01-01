@@ -40,9 +40,11 @@ class QueryBuilderTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->queryFactory->expects($this->once())
+            ->method('getExtractor')
+            ->willReturn($this->extractor);
 
         $builder = new QueryBuilder(
-            $this->extractor,
             $this->joiner,
             $this->queryFactory
         );
@@ -88,9 +90,11 @@ class QueryBuilderTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->queryFactory->expects($this->once())
+            ->method('getExtractor')
+            ->willReturn($this->extractor);
 
         $builder = new QueryBuilder(
-            $this->extractor,
             $this->joiner,
             $this->queryFactory
         );
@@ -140,9 +144,11 @@ class QueryBuilderTest extends TestCase
             ->getMockBuilder('Sensorario\QueryBuilder\QueryFactory')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->queryFactory->expects($this->once())
+            ->method('getExtractor')
+            ->willReturn($this->extractor);
 
         $builder = new QueryBuilder(
-            $this->extractor,
             $this->joiner,
             $this->queryFactory
         );
@@ -227,9 +233,11 @@ class QueryBuilderTest extends TestCase
         $this->queryFactory->expects($this->once())
             ->method('getQueryBuilder')
             ->willReturn($this->queryBuilder);
+        $this->queryFactory->expects($this->once())
+            ->method('getExtractor')
+            ->willReturn($this->extractor);
 
         $builder = new QueryBuilder(
-            $this->extractor,
             $this->joiner,
             $this->queryFactory
         );
@@ -322,9 +330,11 @@ class QueryBuilderTest extends TestCase
         $this->queryFactory->expects($this->once())
             ->method('getQueryBuilder')
             ->willReturn($this->queryBuilder);
+        $this->queryFactory->expects($this->once())
+            ->method('getExtractor')
+            ->willReturn($this->extractor);
 
         $builder = new QueryBuilder(
-            $this->extractor,
             $this->joiner,
             $this->queryFactory
         );

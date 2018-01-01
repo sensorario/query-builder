@@ -10,3 +10,4 @@
  - fix #18 - pass right [SelectBuilder] component
  - fix #17 - move phpunit vendor from require to require-dev
  - fix #15 - add new [QueryFactory] component
+ - fix #22 - enhance [QueryBuiled] constructor
