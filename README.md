@@ -6,8 +6,10 @@ require a lot of joins between tables.
 ## Documentation
 
  - [example with two entities][1]
+ - [example with four entities][2]
 
 [1]: doc/two-entities.md
+[2]: doc/four-entities.md
 
 ## Features
 
