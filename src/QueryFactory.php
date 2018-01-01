@@ -5,7 +5,7 @@ namespace Sensorario\QueryBuilder;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * @since Class available since Release 1.0.8
+ * @since Class available since Release 1.0.9
  */
 class QueryFactory
 {
