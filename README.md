@@ -1,7 +1,7 @@
 # Query Builder
 
-The purpose of this library is to simplify and automate the build queries that
-require a lot of joins between tables.
+The purpose of this library is to simplify and automate the build of queries that
+requires a lot of joins between entities.
 
 ## Documentation
 
