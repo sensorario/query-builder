@@ -16,3 +16,4 @@ require a lot of joins between tables.
  - [x] auto-build joins between entities
  - [ ] where clause
  - [ ] paginate results
+ - [ ] limit number of results
