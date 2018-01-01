@@ -17,7 +17,8 @@ final class CustomQueryBuilder
             ),
             new \Sensorario\QueryBuilder\Joiner(),
             new \Sensorario\QueryBuilder\QueryFactory(
-                $extractor
+                $extractor,
+                $metadata
             )
         ))
         ->getQuery();

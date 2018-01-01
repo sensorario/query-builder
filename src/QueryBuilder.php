@@ -53,6 +53,8 @@ class QueryBuilder
 
     public function getQuery() : Query
     {
+        $this->factory->initQueryBuilder();
+
         $this->joiner->init(
             $this->extractor->getSelectBuilder(),
             $this->factory->getQueryBuilder(),

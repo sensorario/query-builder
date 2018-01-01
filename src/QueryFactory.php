@@ -13,6 +13,8 @@ class QueryFactory
 
     private $metadata;
 
+    private $queryBuilder;
+
     public function __construct(
         Extractor $extractor,
         Objects\MetaData $metadata
