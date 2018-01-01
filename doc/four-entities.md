@@ -3,10 +3,12 @@
 The following is an example based on four entities. A Task, its sub category,
 the related category and finally the macro category.
 
-> Task
->   └── Subcategory
->       └── Category
->           └── Macrocategory
+```
+Task
+└── Subcategory
+    └── Category
+        └── Macrocategory
+```
 
 Between entities there are a relation.
 
