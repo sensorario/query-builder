@@ -154,4 +154,39 @@ class JoinerTest extends TestCase
             $joiner->getBuilder()
         );
     }
+
+    /** @expectedException \Sensorario\QueryBuilder\Exceptions\NoFieldsToJoinException */
+    public function testAcceptOnlyQueriesWithJoins()
+    {
+        $this->selectBuilder = $this
+            ->getMockBuilder('Sensorario\QueryBuilder\SelectBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->selectBuilder->expects($this->once(1))
+            ->method('willBeJoin')
+            ->willReturn([]);
+
+        $this->queryBuilder = $this
+            ->getMockBuilder('Doctrine\ORM\QueryBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->metadata = $this
+            ->getMockBuilder('Sensorario\QueryBuilder\Objects\MetaData')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $joiner = new Joiner();
+
+        $joiner->init(
+            $this->selectBuilder,
+            $this->queryBuilder,
+            $this->metadata
+        );
+
+        $this->assertSame(
+            $this->queryBuilder,
+            $joiner->getBuilder()
+        );
+    }
 }

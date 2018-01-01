@@ -30,9 +30,7 @@ class Joiner
     private function join()
     {
         if ([] == $this->selectBuilder->willBeJoin()) {
-            throw new \RuntimeException(
-                'Oops! No fields to join ...'
-            );
+            throw new \Sensorario\QueryBuilder\Exceptions\NoFieldsToJoinException();
         }
 
         $defined = [$this->metadata->getTable()];

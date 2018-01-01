@@ -44,19 +44,23 @@ class Extractor
     public function ensureFieldsAreDefined() : void
     {
         if (!$this->fields) {
-            throw new \RuntimeException(
-                'Oops! '
-            );
+            throw new \Sensorario\QueryBuilder\Exceptions\MissingFieldsException();
         }
     }
 
-    /** @since Class available since Release 1.0.7 */
+    /**
+     * @codeCoverageIgnore
+     * @since Class available since Release 1.0.7
+     */
     public function getSelectBuilder() : SelectBuilder
     {
         return $this->selectBuilder;
     }
 
-    /** @since Class available since Release 1.0.7 */
+    /**
+     * @codeCoverageIgnore
+     * @since Class available since Release 1.0.7
+     */
     public function getMetadata() : Objects\MetaData
     {
         return $this->metadata;

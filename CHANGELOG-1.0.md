@@ -11,3 +11,5 @@
  - fix #17 - move phpunit vendor from require to require-dev
  - fix #15 - add new [QueryFactory] component
  - fix #22 - enhance [QueryBuiled] constructor
+ - fix #23 - add [NoFieldsToJoinException] exception
+ - fix #24 - add [MissingFieldsException] exception

@@ -7,7 +7,7 @@ use Sensorario\QueryBuilder\Extractor;
 
 class ExtractorTest extends TestCase
 {
-    /** @expectedException \RuntimeException */
+    /** @expectedException \Sensorario\QueryBuilder\Exceptions\MissingFieldsException */
     public function testCantExtractSelectFieldsWithoutFields()
     {
         $this->selectBuilder = $this
