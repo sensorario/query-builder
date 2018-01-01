@@ -12,21 +12,25 @@ class QueryBuilder
 {
     private $extractor;
 
+    private $joiner;
+
+    private $factory;
+
     private $className;
 
     private $queryBuilder;
 
     private $fields;
 
-    private $joiner;
-
     public function __construct(
         Extractor $extractor,
-        Joiner $joiner
+        Joiner $joiner,
+        QueryFactory $factory
     ) {
         $this->extractor     = $extractor;
         $this->metadata      = $this->extractor->getMetadata();
         $this->joiner        = $joiner;
+        $this->factory       = $factory;
 
         $criteria = $this->metadata->getCriteria();
         $this->className = $criteria->getClassName();
@@ -49,30 +53,15 @@ class QueryBuilder
 
     public function getQuery() : Query
     {
-        $this->initQueryBuilder();
-
         $this->joiner->init(
             $this->extractor->getSelectBuilder(),
-            $this->queryBuilder,
+            $this->factory->getQueryBuilder(),
             $this->metadata
         );
 
         $this->queryBuilder = $this->joiner->getBuilder();
 
         return $this->queryBuilder->getQuery();
-    }
-
-    /** @since Class available since Release 1.0.3 */
-    public function initQueryBuilder() : void
-    {
-        $select = $this->extractor->extractSelectFields();
-
-        $this->queryBuilder = $this->metadata->getQueryBuilder();
-        $this->queryBuilder->select($select);
-        $this->queryBuilder->from(
-            $this->className,
-            $this->metadata->getTable()
-        );
     }
 
     public function getResult() : array
